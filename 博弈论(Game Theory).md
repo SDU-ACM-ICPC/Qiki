@@ -12,7 +12,7 @@
 一、基础知识
 ===
 
-一般规则：
+###一般规则###
 
 1. i=0为必胜/必败态（视题目而定）；
 
@@ -20,11 +20,12 @@
 
 3. 若**所有**i-(某个数)为必胜态的话，i为必败态 / 若i为必胜态，则i+(某个数)可能为必败态，**但是若i+(某个数)只有一个后继，则其必为必败态**。
 
-技巧：
+###技巧###
 
 如果难以看出必胜/必败态，不妨从i=0开始画一棵必胜/必败态的转移树来辅助分析。
 
-一些题目使用记忆化搜索就可以解决。
+
+###一些题目使用记忆化搜索就可以解决。###
 
 \>> 有最大取子限制的取石子游戏：[POJ 2068 Nim](http://poj.org/problem?id=2068)
 
@@ -40,7 +41,8 @@
 
 \>> 日历博弈：[POJ 1082 Calendar Game](http://poj.org/problem?id=1082)
 
-**巴什 (Bash) 博奕**
+###巴什 (Bash) 博奕###
+
 [HDU 1846 Brave Game](http://acm.hdu.edu.cn/showproblem.php?pid=1846)
 
 有 n 个石子，两个人轮流取 1~m 个石子。最后取光者得胜。
@@ -49,9 +51,12 @@
 
 分析：以牙还牙。当 `$m+1\mid n$` 时，先手取 x 个，那么后手取 m+1-x 个，最后一定是后手取完；当 `$m+1\nmid n$` 时，设 `$n=k(m+1)+r$`，一开始先手取 r 个，那么变成前面 `$m+1\mid n$` 的局面，最后先手取完。
 
-\>> [威佐夫 (Wythoff) 博奕与 Beatty 定理](https://www.google.com.hk/?gws_rd=ssl#newwindow=1&safe=strict&q=%E5%A8%81%E4%BD%90%E5%A4%AB%E5%8D%9A%E5%BC%88)
+###威佐夫 (Wythoff) 博奕与 Beatty 定理###
 
-\>> [斐波那契 (Fibonacci) 博弈与 Zeckendorf 定理](https://www.google.com.hk/?gws_rd=ssl#newwindow=1&q=%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%8D%9A%E5%BC%88)
+[待完善](https://www.google.com.hk/?gws_rd=ssl#newwindow=1&safe=strict&q=%E5%A8%81%E4%BD%90%E5%A4%AB%E5%8D%9A%E5%BC%88)
+
+###斐波那契 (Fibonacci) 博弈与 Zeckendorf###
+[待完善](https://www.google.com.hk/?gws_rd=ssl#newwindow=1&q=%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%8D%9A%E5%BC%88)
 
 二、Nim
 ===
@@ -59,9 +64,11 @@
 该游戏起源于中国，经当年到美洲打工的华人流传出去。其英文名「NIM」是由广东话「拈」（取物之意）音译而来。
 
 1902 年，L.Bouton 脑洞大开，提出了如下定理，从而彻底地解决了 Nim 问题：
+
 ```
 异或和值为零则后手胜，否则先手胜。
 ```
+
 而这个定理两句话就能解释明白：
 
 1. 当异或和值为零时，无论你怎么取，异或和值一定变为非零，对手以牙还牙，使异或和值变为零，如此循环，直至对手取完。故此时先手必败（处于必败态）。
@@ -70,7 +77,7 @@
 
 一些问题可以转化为 Nim 问题，常用的思路是两个两个分成一组进行思考，注意利用“以牙还牙，以眼还眼”这一技巧。
 
-例题：
+###例题###
 
 [UVa 12499 I am Dumb 3](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3943)
 
@@ -78,14 +85,16 @@
 
 下面阶梯博弈的变形2也可以用分组的思想做。
 
-**阶梯博弈(Staircase Nim)**
+###阶梯博弈(Staircase Nim)###
 
 博弈在一列阶梯上进行，每个阶梯上没有石子或放着若干个石子。两个人进行阶梯博弈，每一步则是将阶梯（不是第一层的阶梯）上的若干个石子移到（某些指定的）低阶的阶梯去，最后没有石子可以移动的人输。
 ![](http://hi.csdn.net/attachment/201108/16/0_1313488616cRqz.gif)
 
 阶梯博弈可以利用游戏的限制转化成Nim解决：由于某个阶梯上的石子移动到不能移动时所需的步数要么是奇数，要么是偶数。对于偶数步，对方用哪些石子走一步你也用哪些石子走一步，从而不影响游戏结果。所以**只对奇数阶的石子求Nim就行**。
 
-例题：[HDU 3389 Game](http://acm.hdu.edu.cn/showproblem.php?pid=3389)
+例题：
+
+[HDU 3389 Game](http://acm.hdu.edu.cn/showproblem.php?pid=3389)
 
 有一些看似与阶梯博弈无关的题，揭开它的面纱后，实际上就是阶梯博弈：
 
@@ -109,7 +118,7 @@
 
 没错！就是阶梯博弈
 
-·2. [POJ 1704 Georgia and Bob](http://poj.org/problem?id=1704)
+2. [POJ 1704 Georgia and Bob](http://poj.org/problem?id=1704)
 
 也是一行格子和一些石子，每次可以把一个石子往左移动若干步，但是不能越过石子，谁最后不能移动谁输。
 
@@ -168,7 +177,7 @@ int main()
 四、其他
 ===
 
-**翻硬币游戏 (Coin Turning Game)**
+###翻硬币游戏 (Coin Turning Game)###
 
 1. 一维的翻硬币游戏，每次可以翻1个或两个。通过单独考虑每个可以翻的硬币发现，Coin Turning
 
@@ -182,7 +191,7 @@ int main()
 
 翻硬币模型的变化更多，很多模型都有一些奇妙的规律，需要打表才能发现。
   
-**删边游戏(Green Hackenbush)**
+###删边游戏(Green Hackenbush)###
 
 1. 树的删边游戏：Colon原理证明这种模型和Nim依然是等价的，多个叉的SG值异或就是对应根节点的SG值。
 
