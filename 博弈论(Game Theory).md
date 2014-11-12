@@ -1,8 +1,11 @@
 零、「以牙还牙，以眼还眼」
 
 见 [Codeforces 197A Plate Game](http://codeforces.com/problemset/problem/197/A)。
+
 （经典博弈，我们选修课老师在上课时提到过此题）
+
 分析：一开始你放一个盘子在桌子中心，然后对手怎么放，你就关于桌子中心对称地放，只要一开始你能放一个盘子在中心，那么最后你肯定能赢。
+
 此乃「以牙还牙，以眼还眼」。
 
 一、基础知识
@@ -13,25 +16,36 @@
 3. 若**所有**i-(某个数)为必胜态的话，i为必败态 / 若i为必胜态，则i+(某个数)可能为必败态，**但是若i+(某个数)只有一个后继，则其必为必败态**。
 
 技巧：
+
 如果难以看出必胜/必败态，不妨从i=0开始画一棵必胜/必败态的转移树来辅助分析。
 
 一些题目使用记忆化搜索就可以解决。
 
 \>> 有最大取子限制的取石子游戏：[POJ 2068 Nim](http://poj.org/problem?id=2068)
+
 \>> 需要一些技巧性讨论的取石子游戏：[POJ 1740 A New Stone Game](http://poj.org/problem?id=1740)
+
 \>> 欧几里得博弈：[POJ 2348 Euclid's Game](http://poj.org/problem?id=2348) (好题)
+
 \>> 弗格森 (Ferguson) 游戏（大白书 P134）
+
 \>> Chomp! 游戏（大白书 P134）
+
 \>> 约束游戏（大白书 P135）
+
 \>> 日历博弈：[POJ 1082 Calendar Game](http://poj.org/problem?id=1082)
 
 **巴什 (Bash) 博奕**
 [HDU 1846 Brave Game](http://acm.hdu.edu.cn/showproblem.php?pid=1846)
+
 有 n 个石子，两个人轮流取 1~m 个石子。最后取光者得胜。
+
 结论：当 `$m+1\mid n$` 时后手胜，否则先手胜。
+
 分析：以牙还牙。当 `$m+1\mid n$` 时，先手取 x 个，那么后手取 m+1-x 个，最后一定是后手取完；当 `$m+1\nmid n$` 时，设 `$n=k(m+1)+r$`，一开始先手取 r 个，那么变成前面 `$m+1\mid n$` 的局面，最后先手取完。
 
 \>> [威佐夫 (Wythoff) 博奕与 Beatty 定理](https://www.google.com.hk/?gws_rd=ssl#newwindow=1&safe=strict&q=%E5%A8%81%E4%BD%90%E5%A4%AB%E5%8D%9A%E5%BC%88)
+
 \>> [斐波那契 (Fibonacci) 博弈与 Zeckendorf 定理](https://www.google.com.hk/?gws_rd=ssl#newwindow=1&q=%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%8D%9A%E5%BC%88)
 
 二、Nim
@@ -49,7 +63,9 @@
 一些问题可以转化为 Nim 问题，常用的思路是两个两个分成一组进行思考，注意利用“以牙还牙，以眼还眼”这一技巧。
 
 例题：
+
 [UVa 12499 I am Dumb 3](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3943)
+
 [HDU 4315 Climbing the Hill](http://acm.hdu.edu.cn/showproblem.php?pid=4315)
 
 下面阶梯博弈的变形2也可以用分组的思想做。
@@ -69,30 +85,45 @@
 ![](http://endless.qiniudn.com/blognim.jpg)
 
 设函数F[i]表示第i个石子移动到不能移动所需要的步数。
+
 然后我们来观察某一次移动，假设图中的2跳到了4的后面，我们可以来观察一下所有石子的F函数有什么变化：
+
 ![](http://user-image.logdown.io/user/7190/blog/7143/post/196410/ovQkpA6uTiq2DGCqwA74_1453255304857576105(2).jpg)
+
 首先对于1及其之前的石子，它们的F函数显然不变。
+
 同样，对于移动后的2之后的石子，它们的F函数也不变。
+
 那么变化的就是2,3,4这三个石子的F值，变化了多少？每一个减少了1
+
 那么，如果我们把这个函数F[]看做台阶的阶数的话，乃是不是觉得有一点熟悉的感觉了~
+
 没错！就是阶梯博弈
 
 ·2. [POJ 1704 Georgia and Bob](http://poj.org/problem?id=1704)
+
 也是一行格子和一些石子，每次可以把一个石子往左移动若干步，但是不能越过石子，谁最后不能移动谁输。
+
 如果将没有石子的格子看做阶梯上的石子，我们会发现移动一个石子实际上是将这个石子左边的**格子移到右边去**，也就是把高度为i的阶梯上的石子移到下一个阶梯上去（最右边的空白为第一阶），所以还是讨论奇偶性~
+
 （这题也可以用两个两个一组的思路来思考）
 
 三、Grundy值(SG函数)
 
 我们把 Nim 游戏加点限制：每次你只能取a1,a2,a3,...an个石头。
+
 如何转化成 Nim 问题呢？
+
 原来的 Nim 是 a->a' 的转化，现在我们改为 SG(a)->SG(a') 的转化。
+
 见 [Wiki](http://en.wikipedia.org/wiki/Mex_(mathematics)) 中给出的例子。
 
 Sprague-Grundy 定理(SG 定理)：**游戏和**的Grundy值等于各游戏Grundy值的异或和。
+
 很多博弈游戏都含有**游戏和**这一要素，故可用Grundy值很方便的解决。
 
 **剪纸博弈**
+
 [POJ 2311 Cutting Game](http://poj.org/problem?id=2311)（代码见下）
 
 <!--more-->
